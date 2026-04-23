@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import { CORE_SYSTEM_PROMPT } from "./system.js";
+import { ELITE_SYSTEM_PROMPT } from "./system.js";
 
 export async function callCoreModel(prompt) {
   const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -11,7 +11,7 @@ export async function callCoreModel(prompt) {
     body: JSON.stringify({
       model: "anthropic/claude-3.5-sonnet",
       messages: [
-        { role: "system", content: CORE_SYSTEM_PROMPT },
+        { role: "system", content: ELITE_SYSTEM_PROMPT },
         { role: "user", content: prompt }
       ],
       temperature: 0.3,
@@ -20,5 +20,5 @@ export async function callCoreModel(prompt) {
   });
 
   const data = await response.json();
-  return data?.choices?.[0]?.message?.content || "No output";
+  return data?.choices?.[0]?.message?.content || "No response.";
 }

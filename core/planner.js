@@ -1,22 +1,15 @@
 export function createPlan(task) {
   return `
-Task:
-${task}
+TASK: ${task}
 
-Create a structured plan.
+Create a detailed, structured execution plan.
 
-Output format:
+FORMAT:
+1. Objective
+2. Key Steps
+3. Expected Output
+4. Quality Criteria
 
-PLAN:
-1.
-2.
-3.
-
-REQUIRED_TOOL_TYPE:
-- reasoning
-- execution
-- file_generation
-- web
-- image
+Provide the plan now.
 `;
 }
