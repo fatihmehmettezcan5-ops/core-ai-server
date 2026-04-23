@@ -1,6 +1,8 @@
 import express from "express";
-import { Server } from "@modelcontextprotocol/sdk/server/index.js";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import {
+  Server
+} from "@modelcontextprotocol/sdk/server/index.js";
+
 import {
   ListToolsRequestSchema,
   CallToolRequestSchema
@@ -13,7 +15,7 @@ const app = express();
 app.use(express.json());
 
 const server = new Server(
-  { name: "core-ai-engine", version: "3.0.0" },
+  { name: "core-ai-engine", version: "4.0.0" },
   { capabilities: { tools: {} } }
 );
 
@@ -50,18 +52,18 @@ server.setRequestHandler(CallToolRequestSchema, async (req) => {
 });
 
 /* ===============================
-   HTTP BRIDGE
+   DIRECT HTTP MCP HANDLER
 ================================ */
 
-const transport = new StdioServerTransport();
-
-await server.connect(transport);
-
 app.post("/mcp", async (req, res) => {
-  const response = await server.handleMessage(req.body);
-  res.json(response);
+  try {
+    const response = await server.handleMessage(req.body);
+    res.json(response);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 app.listen(process.env.PORT || 10000, () => {
-  console.log("✅ Core AI Server Running (HTTP Bridge Mode)");
+  console.log("✅ Core AI Server Running (Direct HTTP Mode)");
 });
