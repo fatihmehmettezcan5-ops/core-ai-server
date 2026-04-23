@@ -1,10 +1,13 @@
 import express from "express";
-import { Server } from "@modelcontextprotocol/sdk/server/index.js";
-import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/index.js";
+import {
+  Server,
+  StreamableHTTPServerTransport
+} from "@modelcontextprotocol/sdk/server";
+
 import {
   ListToolsRequestSchema,
   CallToolRequestSchema
-} from "@modelcontextprotocol/sdk/types.js";
+} from "@modelcontextprotocol/sdk/types";
 
 import { callCoreModel } from "./core/openrouter.js";
 import { createPlan } from "./core/planner.js";
@@ -13,7 +16,7 @@ const app = express();
 app.use(express.json());
 
 const server = new Server(
-  { name: "core-ai-engine", version: "2.0.0" },
+  { name: "core-ai-engine", version: "2.1.0" },
   { capabilities: { tools: {} } }
 );
 
@@ -56,5 +59,5 @@ app.post("/mcp", async (req, res) => {
 });
 
 app.listen(process.env.PORT || 10000, () => {
-  console.log("✅ Core AI Server Running (HTTP mode)");
+  console.log("✅ Core AI Server Running (HTTP mode stable)");
 });
