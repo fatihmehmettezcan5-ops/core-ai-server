@@ -67,3 +67,6 @@ app.post("/mcp", async (req, res) => {
 app.listen(process.env.PORT || 10000, () => {
   console.log("✅ Core AI Server Running (Direct HTTP Mode)");
 });
+app.get("/", (req, res) => {
+  res.send("SERVER WORKING");
+});
