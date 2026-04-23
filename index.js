@@ -1,6 +1,6 @@
 import express from "express";
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
-import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
+import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamable-http.js";
 import {
   ListToolsRequestSchema,
   CallToolRequestSchema
