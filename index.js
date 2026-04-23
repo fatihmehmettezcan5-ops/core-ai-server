@@ -1,6 +1,6 @@
 import express from "express";
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
-import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamable-http.js";
+import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
 import {
   ListToolsRequestSchema,
   CallToolRequestSchema
@@ -49,10 +49,13 @@ server.setRequestHandler(CallToolRequestSchema, async (req) => {
   };
 });
 
-const transport = new StreamableHTTPServerTransport();
+app.get("/sse", async (req, res) => {
+  const transport = new SSEServerTransport("/messages", res);
+  await server.connect(transport);
+});
 
-app.post("/mcp", async (req, res) => {
-  await transport.handleRequest(req, res, req.body);
+app.post("/messages", async (req, res) => {
+  // MCPJam mesajları buradan gider
 });
 
 app.listen(process.env.PORT || 10000, () => {
